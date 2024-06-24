@@ -1,7 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
-using Avalonia.Controls;
-using GalaSoft.MvvmLight;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Models;
 using Tic_tac_toe.Service;

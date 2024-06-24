@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media.Imaging;
-using GalaSoft.MvvmLight.Helpers;
 using System.ComponentModel;
 
 namespace Tic_tac_toe.Models
