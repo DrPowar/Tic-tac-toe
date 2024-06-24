@@ -15,7 +15,7 @@ namespace Tic_tac_toe.Models
         public Bitmap BoxImage
         {
             get { return boxImage; }
-            private set
+            set
             {
                 boxImage = value;
             }
@@ -24,7 +24,7 @@ namespace Tic_tac_toe.Models
         public string SymbolName
         {
             get { return symbolName; }
-            private set
+            set
             {
                 symbolName = value;
             }
@@ -50,7 +50,6 @@ namespace Tic_tac_toe.Models
             OnPropertyChanged(nameof(IsEmpty));
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -67,5 +66,6 @@ namespace Tic_tac_toe.Models
         {
             return JsonSerializer.Deserialize<Box>(json);
         }
+
     }
 }

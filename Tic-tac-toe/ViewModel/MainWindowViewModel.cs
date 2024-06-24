@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Models;
 using Tic_tac_toe.Net;
@@ -55,12 +56,6 @@ namespace Tic_tac_toe.ViewModel
                 ServerStatus = "Server connected";
                 OnPropertyChanged(nameof(ServerStatus));
             }
-
-            Box box = new Box();
-            box.BoxSetValues(null, "X");
-            string json = box.ToJson();
-            byte[] data = Encoding.UTF8.GetBytes(json);
-            Server.SendData(data);
         }
 
         public void StartNewGame()
@@ -86,6 +81,11 @@ namespace Tic_tac_toe.ViewModel
         public void BoxClick(string param)
         {
             boxCollection[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
+
+            string json = JsonSerializer.Serialize(boxCollection);
+            byte[] data = Encoding.UTF8.GetBytes(json);
+            Server.SendData(data);
+
             ChangeTurn();
         }
 

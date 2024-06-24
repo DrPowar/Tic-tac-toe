@@ -1,5 +1,7 @@
-﻿using System.Net.Sockets;
+﻿using System.IO;
+using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using Tic_tac_toe.Models;
 
 namespace Tic_tac_toe_Server
@@ -25,15 +27,15 @@ namespace Tic_tac_toe_Server
             NetworkStream = client.GetStream();
         }
 
-        public Box ReadData()
+        public Box[] ReadMainGameFieldData()
         {
-            byte[] buffer = new byte[256];
+            byte[] buffer = new byte[1024];
             int bytesRead = NetworkStream.Read(buffer, 0, buffer.Length);
             string json = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Console.WriteLine(json);
-            Box box = Box.FromJson(json);
 
-            return box;
+            Box[] boxCollection = JsonSerializer.Deserialize<Box[]>(json);
+
+            return boxCollection;
         }
     }
 }

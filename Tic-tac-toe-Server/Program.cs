@@ -24,6 +24,7 @@ namespace Tic_tac_toe_Server
                     clients.Add(client);
                 }
 
+                Box[] boxes = clients[0].ReadMainGameFieldData();
             }
         }
     }
