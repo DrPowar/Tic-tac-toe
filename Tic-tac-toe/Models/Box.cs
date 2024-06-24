@@ -1,37 +1,51 @@
 ﻿using Avalonia.Media.Imaging;
+using GalaSoft.MvvmLight.Helpers;
 using System.ComponentModel;
 
 namespace Tic_tac_toe.Models
 {
     public class Box : INotifyPropertyChanged
     {
-        private Bitmap boxImage = null!;
-        private string symbolName = null!;
+        private Bitmap? boxImage;
+        private string? symbolName;
+        public bool IsEmpty { get; set; } = true;
 
         public Bitmap BoxImage
         {
             get { return boxImage; }
-            set
+            private set
             {
-                if (boxImage == null)
-                {
-                    boxImage = value;
-                    OnPropertyChanged(nameof(BoxImage));
-                }
+                boxImage = value;
             }
         }
 
         public string SymbolName
         {
             get { return symbolName; }
-            set
+            private set
             {
-                if (symbolName == null)
-                {
-                    symbolName = value;
-                    OnPropertyChanged(nameof(SymbolName));
-                }
+                symbolName = value;
             }
+        }
+
+        public void BoxReset()
+        {
+            IsEmpty = true;
+            OnPropertyChanged(nameof(IsEmpty));
+            BoxImage = null;
+            OnPropertyChanged(nameof(BoxImage));
+            SymbolName = null;
+            OnPropertyChanged(nameof(SymbolName));
+        }
+
+        public void BoxSetValues(Bitmap image, string symbolName)
+        {
+            BoxImage = image;
+            OnPropertyChanged(nameof(BoxImage));
+            SymbolName = symbolName;
+            OnPropertyChanged(nameof(SymbolName));
+            IsEmpty = false;
+            OnPropertyChanged(nameof(IsEmpty));
         }
 
 

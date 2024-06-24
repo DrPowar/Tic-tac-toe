@@ -12,8 +12,8 @@ namespace Tic_tac_toe.Service
 
         public void InitializeUsers()
         {
-            User1 = new User(new Bitmap(Symbols.SymbolPath.XPath), "x", true);
-            User2 = new User(new Bitmap(Symbols.SymbolPath.OPath), "o", false);
+            User1 = new User(new Bitmap(Symbols.SymbolPath.XPath), Constants.SymbolsConst.SymbolX, true);
+            User2 = new User(new Bitmap(Symbols.SymbolPath.OPath), Constants.SymbolsConst.SymbolO, false);
 
             CurrentUser = User1;
         }
