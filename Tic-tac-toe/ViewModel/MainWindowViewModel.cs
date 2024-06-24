@@ -1,12 +1,29 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Net.Sockets;
+using System.Text;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Models;
+using Tic_tac_toe.Net;
 using Tic_tac_toe.Service;
 
 namespace Tic_tac_toe.ViewModel
 {
     internal partial class MainWindowViewModel : INotifyPropertyChanged
     {
+        private Server Server { get; set; }
+
+        private string _serverStatus = "Server not connected";
+        public string ServerStatus
+        {
+            get => _serverStatus;
+            set
+            {
+                _serverStatus = value;
+                OnPropertyChanged(nameof(ServerStatus));
+            }
+        }
+
         private string _gameStatusField;
         public string GameStatusField
         {
@@ -23,8 +40,27 @@ namespace Tic_tac_toe.ViewModel
 
         public MainWindowViewModel(UserService userService)
         {
+            Server = new Server();
             _userService = userService;
             StartNewGame();
+
+           
+        }
+
+        public void ConnectToServer()
+        {
+            Server.ConnectToServer();
+            if(Server.IsConnected())
+            {
+                ServerStatus = "Server connected";
+                OnPropertyChanged(nameof(ServerStatus));
+            }
+
+            Box box = new Box();
+            box.BoxSetValues(null, "X");
+            string json = box.ToJson();
+            byte[] data = Encoding.UTF8.GetBytes(json);
+            Server.SendData(data);
         }
 
         public void StartNewGame()

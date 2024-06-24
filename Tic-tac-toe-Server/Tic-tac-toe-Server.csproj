@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tic-tac-toe\Tic-tac-toe.csproj" />
+  </ItemGroup>
+
 </Project>
