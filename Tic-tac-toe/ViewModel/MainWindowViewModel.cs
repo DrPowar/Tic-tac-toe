@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Net.Sockets;
+﻿using System;
+using System.ComponentModel;
 using System.Text;
 using System.Text.Json;
 using Tic_tac_toe.Constants;
@@ -14,7 +13,25 @@ namespace Tic_tac_toe.ViewModel
     {
         private Server Server { get; set; }
 
+        private UserService _userService;
+
+        private GameHistory _gameHistory;
+
+        public Box[] boxCollection { get; set; }
+
         private string _serverStatus = "Server not connected";
+
+        private string _gameStatusField;
+
+
+        public MainWindowViewModel(UserService userService, GameHistory gameHistory)
+        {
+            Server = new Server();
+            _userService = userService;
+            _gameHistory = gameHistory;
+            StartNewGame();
+        }
+
         public string ServerStatus
         {
             get => _serverStatus;
@@ -25,7 +42,6 @@ namespace Tic_tac_toe.ViewModel
             }
         }
 
-        private string _gameStatusField;
         public string GameStatusField
         {
             get => _gameStatusField;
@@ -36,27 +52,17 @@ namespace Tic_tac_toe.ViewModel
             }
         }
 
-        private UserService _userService;
-        public Box[] boxCollection { get; set; }
-
-        public MainWindowViewModel(UserService userService)
-        {
-            Server = new Server();
-            _userService = userService;
-            StartNewGame();
-
-           
-        }
 
         public void ConnectToServer()
         {
             Server.ConnectToServer();
-            if(Server.IsConnected())
+            if (Server.IsConnected())
             {
                 ServerStatus = "Server connected";
                 OnPropertyChanged(nameof(ServerStatus));
             }
         }
+
 
         public void StartNewGame()
         {
@@ -68,6 +74,7 @@ namespace Tic_tac_toe.ViewModel
             GameStatusField = GameStatusConst.PlayerTurn + " " + _userService.CurrentUser.UserSymbolName;
         }
 
+
         public void RestartGame()
         {
             for (int i = 0; i < boxCollection.Length; i++)
@@ -78,13 +85,16 @@ namespace Tic_tac_toe.ViewModel
             GameStatusField = GameStatusConst.PlayerTurn + " " + _userService.CurrentUser.UserSymbolName;
         }
 
+
+
+
         public void BoxClick(string param)
         {
             boxCollection[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
 
-            string json = JsonSerializer.Serialize(boxCollection);
-            byte[] data = Encoding.UTF8.GetBytes(json);
-            Server.SendData(data);
+            ClientGameDataModel gmd = new ClientGameDataModel(boxCollection, new Move(_userService.CurrentUser, Convert.ToByte(param)));
+
+            Server.SendData(gmd.ToJsonData(gmd));
 
             ChangeTurn();
         }
@@ -136,7 +146,7 @@ namespace Tic_tac_toe.ViewModel
                 }
             }
 
-            if(CheckForDraw())
+            if (CheckForDraw())
             {
                 GameStatusField = GameStatusConst.Draw;
                 return true;

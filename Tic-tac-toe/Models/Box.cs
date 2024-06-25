@@ -1,13 +1,13 @@
 ﻿using Avalonia.Media.Imaging;
+using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Tic_tac_toe.Models
 {
     public class Box : INotifyPropertyChanged
     {
         private Bitmap? boxImage;
+
         private string? symbolName;
         public bool IsEmpty { get; set; } = true;
 
@@ -59,12 +59,17 @@ namespace Tic_tac_toe.Models
 
         public string ToJson()
         {
-            return JsonSerializer.Serialize(this);
+            return JsonConvert.SerializeObject(this);
         }
 
         public static Box FromJson(string json)
         {
-            return JsonSerializer.Deserialize<Box>(json);
+            return JsonConvert.DeserializeObject<Box>(json);
+        }
+
+        public Box()
+        {
+
         }
 
     }
