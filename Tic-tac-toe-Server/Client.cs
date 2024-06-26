@@ -15,8 +15,9 @@ namespace Tic_tac_toe_Server
 
         public NetworkStream NetworkStream { get; set; }
 
-        public Client(TcpClient client)
+        public Client(TcpClient client, User user)
         {
+            User = user;
             ClientSocket = client;
             ClientId = Guid.NewGuid();    
 
@@ -26,6 +27,25 @@ namespace Tic_tac_toe_Server
             }
 
             NetworkStream = client.GetStream();
+        }
+
+        public void SendUserData()
+        {
+            try
+            {
+                NetworkStream stream = ClientSocket.GetStream();
+                if (stream.CanWrite)
+                {
+                    string userData = JsonConvert.SerializeObject(User);
+                    byte[] userDataBytes = Encoding.UTF8.GetBytes(userData);
+                    stream.Write(userDataBytes, 0, userDataBytes.Length);
+                    stream.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка відправки даних клієнту {ClientId}: {ex.Message}");
+            }
         }
 
         public ClientGameDataModel ReadMainGameData()

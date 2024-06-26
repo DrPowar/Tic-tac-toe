@@ -11,7 +11,7 @@ namespace Tic_tac_toe.ViewModel
 {
     internal partial class MainWindowViewModel : INotifyPropertyChanged
     {
-        private Server Server { get; set; }
+        private Server _server;
 
         private UserService _userService;
 
@@ -24,11 +24,12 @@ namespace Tic_tac_toe.ViewModel
         private string _gameStatusField;
 
 
-        public MainWindowViewModel(UserService userService, GameHistory gameHistory)
+        public MainWindowViewModel(UserService userService, GameHistory gameHistory, Server server)
         {
-            Server = new Server();
+            _server = new Server();
             _userService = userService;
             _gameHistory = gameHistory;
+            _server = server;
             StartNewGame();
         }
 
@@ -55,8 +56,7 @@ namespace Tic_tac_toe.ViewModel
 
         public void ConnectToServer()
         {
-            Server.ConnectToServer();
-            if (Server.IsConnected())
+            if (_server.IsConnected())
             {
                 ServerStatus = "Server connected";
                 OnPropertyChanged(nameof(ServerStatus));
@@ -94,7 +94,7 @@ namespace Tic_tac_toe.ViewModel
 
             ClientGameDataModel gmd = new ClientGameDataModel(boxCollection, new Move(_userService.CurrentUser, Convert.ToByte(param)));
 
-            Server.SendData(gmd.ToJsonData(gmd));
+            _server.SendData(gmd.ToJsonData(gmd));
 
             ChangeTurn();
         }

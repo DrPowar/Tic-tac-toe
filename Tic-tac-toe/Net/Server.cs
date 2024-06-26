@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Text;
+using Tic_tac_toe.Models;
 
 namespace Tic_tac_toe.Net
 {
@@ -28,15 +30,32 @@ namespace Tic_tac_toe.Net
                 {
                     client.Connect("127.0.0.1", 7891);
 
-                    if(IsConnected())
+                    if (IsConnected())
                     {
                         stream = client.GetStream();
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
                 }
+            }
+        }
+
+        public User ReceiveUserData()
+        {
+            try
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string userDataJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(userDataJson);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Помилка отримання даних: {ex.Message}");
+                return null;
             }
         }
 

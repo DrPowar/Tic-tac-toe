@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using Tic_tac_toe.Models;
+using Tic_tac_toe.Constants;
 
 namespace Tic_tac_toe_Server
 {
@@ -56,13 +58,15 @@ namespace Tic_tac_toe_Server
 
                 if (Client1 == null)
                 {
-                    Client1 = new Client(tcpClient);
+                    Client1 = new Client(tcpClient, new User(SymbolsConst.SymbolX, true));
                     Console.WriteLine($"Клієнт {Client1.ClientId} підключено.");
+                    Client1.SendUserData();
                 }
                 else if (Client2 == null)
                 {
-                    Client2 = new Client(tcpClient);
+                    Client2 = new Client(tcpClient, new User(SymbolsConst.SymbolO, false));
                     Console.WriteLine($"Клієнт {Client1.ClientId} підключено.");
+                    Client2.SendUserData();
                 }
                 else
                 {
