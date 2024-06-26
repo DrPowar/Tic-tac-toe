@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Sockets;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tic_tac_toe.Net
 {

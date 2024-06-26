@@ -9,18 +9,20 @@ namespace Tic_tac_toe_Server
     {
         public TcpClient ClientSocket { get; set; } 
 
-        public Guid UserId { get; set; }
+        public User User { get; set; }
+
+        public Guid ClientId { get; set; }
 
         public NetworkStream NetworkStream { get; set; }
 
         public Client(TcpClient client)
         {
             ClientSocket = client;
-            UserId = Guid.NewGuid();    
+            ClientId = Guid.NewGuid();    
 
             if(ClientSocket.Connected)
             {
-                Console.WriteLine($"User {UserId} has connected.");
+                Console.WriteLine($"User {ClientId} has connected.");
             }
 
             NetworkStream = client.GetStream();

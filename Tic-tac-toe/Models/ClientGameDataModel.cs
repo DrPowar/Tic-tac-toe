@@ -1,6 +1,5 @@
-﻿using System.Text.Json;
+﻿using Newtonsoft.Json;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace Tic_tac_toe.Models
 {
@@ -9,7 +8,10 @@ namespace Tic_tac_toe.Models
         public Box[] BoxCollection { get; set; }
         public Move Move { get; set; }
 
-        public ClientGameDataModel() { }
+        public ClientGameDataModel()
+        {
+
+        }
 
         public ClientGameDataModel(Box[] boxCollection, Move move)
         {

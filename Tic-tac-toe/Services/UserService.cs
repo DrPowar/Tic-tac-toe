@@ -3,7 +3,7 @@ using Tic_tac_toe.Models;
 
 namespace Tic_tac_toe.Service
 {
-    internal class UserService
+    public class UserService
     {
         public User User1 { get; set; } = null!;
         public User User2 { get; set; } = null!;

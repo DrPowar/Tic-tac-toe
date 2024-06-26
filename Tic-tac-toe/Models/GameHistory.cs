@@ -2,7 +2,7 @@
 
 namespace Tic_tac_toe.Models
 {
-    internal class GameHistory
+    public class GameHistory
     {
         private List<Move> moves;
 
