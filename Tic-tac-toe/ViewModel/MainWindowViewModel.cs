@@ -25,14 +25,17 @@ namespace Tic_tac_toe.ViewModel
         private string _gameStatusField;
 
 
-        public MainWindowViewModel(UserService userService, GameHistory gameHistory, Server server, User user)
+        public MainWindowViewModel(UserService userService, Server server, User user, Box[] boxes)
         {
             _server = new Server();
             _userService = userService;
-            _gameHistory = gameHistory;
             _server = server;
             _user = user;
-            StartNewGame();
+            boxCollection = boxes;
+            if (boxes[0] == null)
+            {
+                StartNewGame();
+            }
         }
 
         public string ServerStatus
@@ -96,9 +99,9 @@ namespace Tic_tac_toe.ViewModel
 
             ClientGameDataModel gmd = new ClientGameDataModel(boxCollection, new Move(_user, Convert.ToByte(param)));
 
-            _server.SendData(gmd.ToJsonData(gmd));
+            _user.IsActived = false;
 
-            ChangeTurn();
+            _server.SendData(gmd.ToJsonData(gmd));
         }
 
         public void ChangeTurn()

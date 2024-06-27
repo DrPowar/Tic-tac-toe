@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using Tic_tac_toe.Models;
 
 namespace Tic_tac_toe.Net
@@ -59,6 +60,29 @@ namespace Tic_tac_toe.Net
                 return null;
             }
         }
+
+        public async Task<ServerUserDataModel?> ReceiveGameDataAsync()
+        {
+            try
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                if (bytesRead == 0)
+                {
+                    return null;
+                }
+                string dataJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<ServerUserDataModel>(dataJson);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error receiving data: {ex.Message}");
+                return null;
+            }
+        }
+
+
 
         public bool IsConnected()
         {

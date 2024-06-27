@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using Tic_tac_toe.Models;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Service;
+using System.Diagnostics;
 
 namespace Tic_tac_toe_Server.Models
 {
@@ -110,6 +111,8 @@ namespace Tic_tac_toe_Server.Models
                         data = Client1.ReadMainGameData();
                     }
                     while (data == null);
+
+                    Debug.WriteLine($"Data received user1");
                     return data;
                 });
 
@@ -121,6 +124,8 @@ namespace Tic_tac_toe_Server.Models
                         data = Client2.ReadMainGameData();
                     }
                     while (data == null);
+
+                    Debug.WriteLine($"Data received user2");
                     return data;
                 });
 
@@ -131,6 +136,7 @@ namespace Tic_tac_toe_Server.Models
         }
 
 
+
         public void SendClientsData(ServerUserDataModel serverUserData)
         {
             if (AllClientConnected())
@@ -139,9 +145,11 @@ namespace Tic_tac_toe_Server.Models
                 {
                     Client1.SendGameData(serverUserData);
                     Client2.SendGameData(serverUserData);
+                    Console.WriteLine("Data sent to both clients.");
                 }
             }
         }
+
 
 
     }

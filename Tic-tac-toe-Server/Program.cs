@@ -28,16 +28,13 @@ namespace Tic_tac_toe_Server
                     tcpServer.ConnectsClient();
                 }
 
-
                 ClientGameDataModel clientGameData = tcpServer.GetClientsDataAsync().GetAwaiter().GetResult();
                 if (clientGameData != null)
                 {
                     ClientDataParser.ParseClientData(clientGameData, ref gameHistory, ref mainGameField);
                     userService.ChangeCurrentUser();
-                    tcpServer.SendClientsData(new ServerUserDataModel(userService.CurrentUser, mainGameField));
+                    tcpServer.SendClientsData(new Models.ServerUserDataModel(userService.CurrentUser, mainGameField));
                 }
-
-
             }
         }
     }
