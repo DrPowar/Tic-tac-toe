@@ -2,8 +2,8 @@
 {
     internal static class GameStatusConst
     {
-        public const string PlayerTurn = "Хід гравця";
-        public const string EndOfGame = "Переміг гравець";
-        public const string Draw = "Нічия";
+        public const string PlayerTurn = "Player's turn";
+        public const string EndOfGame = "Player won";
+        public const string Draw = "Draw";
     }
 }

@@ -16,6 +16,7 @@ namespace Tic_tac_toe.ViewModel
         private UserService _userService;
 
         private GameHistory _gameHistory;
+        private User _user;
 
         public Box[] boxCollection { get; set; }
 
@@ -24,12 +25,13 @@ namespace Tic_tac_toe.ViewModel
         private string _gameStatusField;
 
 
-        public MainWindowViewModel(UserService userService, GameHistory gameHistory, Server server)
+        public MainWindowViewModel(UserService userService, GameHistory gameHistory, Server server, User user)
         {
             _server = new Server();
             _userService = userService;
             _gameHistory = gameHistory;
             _server = server;
+            _user = user;
             StartNewGame();
         }
 
@@ -90,9 +92,9 @@ namespace Tic_tac_toe.ViewModel
 
         public void BoxClick(string param)
         {
-            boxCollection[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
+            boxCollection[int.Parse(param) - 1].BoxSetValues(_user.UserSymbol, _user.UserSymbolName);
 
-            ClientGameDataModel gmd = new ClientGameDataModel(boxCollection, new Move(_userService.CurrentUser, Convert.ToByte(param)));
+            ClientGameDataModel gmd = new ClientGameDataModel(boxCollection, new Move(_user, Convert.ToByte(param)));
 
             _server.SendData(gmd.ToJsonData(gmd));
 

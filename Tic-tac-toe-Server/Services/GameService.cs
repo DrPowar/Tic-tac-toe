@@ -1,7 +1,7 @@
 ﻿using Tic_tac_toe.Models;
 using Tic_tac_toe.Service;
 
-namespace Tic_tac_toe_Server
+namespace Tic_tac_toe_Server.Services
 {
     internal class GameService
     {

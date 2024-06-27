@@ -50,6 +50,7 @@ namespace Tic_tac_toe.Net
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
                 string userDataJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(userDataJson);
+                user.UpdatUserImage();
                 return user;
             }
             catch (Exception ex)

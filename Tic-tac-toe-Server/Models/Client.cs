@@ -3,11 +3,11 @@ using System.Net.Sockets;
 using System.Text;
 using Tic_tac_toe.Models;
 
-namespace Tic_tac_toe_Server
+namespace Tic_tac_toe_Server.Models
 {
     public class Client
     {
-        public TcpClient ClientSocket { get; set; } 
+        public TcpClient ClientSocket { get; set; }
 
         public User User { get; set; }
 
@@ -19,9 +19,9 @@ namespace Tic_tac_toe_Server
         {
             User = user;
             ClientSocket = client;
-            ClientId = Guid.NewGuid();    
+            ClientId = Guid.NewGuid();
 
-            if(ClientSocket.Connected)
+            if (ClientSocket.Connected)
             {
                 Console.WriteLine($"User {ClientId} has connected.");
             }
@@ -48,6 +48,24 @@ namespace Tic_tac_toe_Server
             }
         }
 
+        public void SendGameData(ServerUserDataModel serverUserData)
+        {
+            try
+            {
+                NetworkStream stream = ClientSocket.GetStream();
+                if (stream.CanWrite)
+                {
+                    string serverUserDataJson = JsonConvert.SerializeObject(serverUserData);
+                    byte[] serverUserDataBytes = Encoding.UTF8.GetBytes(serverUserDataJson);
+                    stream.Write(serverUserDataBytes, 0, serverUserDataBytes.Length);
+                    stream.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка відправки даних клієнту {ClientId}: {ex.Message}");
+            }
+        }
         public ClientGameDataModel ReadMainGameData()
         {
             byte[] buffer = new byte[1024];

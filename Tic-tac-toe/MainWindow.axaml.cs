@@ -21,11 +21,8 @@ namespace Tic_tac_toe
             _userService.InitializeUsers();
             _server = new Server();
             _server.ConnectToServer();
-            if(_user == null)
-            {
-                _user = _server.ReceiveUserData();
-            }
-            DataContext = new MainWindowViewModel(_userService, _gameHistory, _server);
+            _user = _server.ReceiveUserData();
+            DataContext = new MainWindowViewModel(_userService, _gameHistory, _server, _user);
         }
     }
 }

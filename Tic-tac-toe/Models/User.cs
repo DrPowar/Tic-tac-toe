@@ -1,5 +1,7 @@
 ﻿using Avalonia.Media.Imaging;
+using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
+using Tic_tac_toe.Constants;
 
 namespace Tic_tac_toe.Models
 {
@@ -26,6 +28,21 @@ namespace Tic_tac_toe.Models
         {
             UserSymbolName = symbolName;
             IsActived = isActived;
+        }
+
+        public void UpdatUserImage()
+        {
+            if(this.UserSymbol == null)
+            {
+                if(this.UserSymbolName == SymbolsConst.SymbolX)
+                {
+                    UserSymbol = new Bitmap(Symbols.SymbolPath.XPath);
+                }
+                else
+                {
+                    UserSymbol = new Bitmap(Symbols.SymbolPath.OPath);
+                }
+            }
         }
     }
 }
