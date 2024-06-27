@@ -10,6 +10,7 @@ namespace Tic_tac_toe.ViewModel
     {
         private string _gameStatusField;
         private EndOfGameChecker _endOfGameChecker;
+        public GameHistory GameHistory { get; set; }
         public string GameStatusField
         {
             get => _gameStatusField;
@@ -23,10 +24,11 @@ namespace Tic_tac_toe.ViewModel
         private UserService _userService;
         public Box[] boxCollection { get; set; }
 
-        public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination)
+        public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination, GameHistory gameHistory)
         {
             _userService = userService;
             _endOfGameChecker = new EndOfGameChecker(winnerCombination);
+            GameHistory = gameHistory;
             StartNewGame();
         }
 
@@ -53,6 +55,7 @@ namespace Tic_tac_toe.ViewModel
         public void BoxClick(string param)
         {
             boxCollection[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
+            GameHistory.AddMove(new Move(_userService.CurrentUser, int.Parse(param) - 1));
             ChangeTurn();
         }
 

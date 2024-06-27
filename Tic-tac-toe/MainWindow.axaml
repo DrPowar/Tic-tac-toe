@@ -43,6 +43,7 @@
 		<StackPanel VerticalAlignment="Center" Name="ButtonsField" DockPanel.Dock="Right" Width="350">
 			<TextBlock FontSize="24" HorizontalAlignment="Center" Margin="20" Text="{Binding GameStatusField}">
 			</TextBlock>
+			<TextBox Height="100" Width="250" AcceptsReturn="True" Margin="20" TextWrapping="Wrap" Text="{Binding GameHistory.HistoryField}"/>
 			<Button HorizontalAlignment="Center" Name="RestartButton" Command="{Binding RestartGame}">
 				Restart
 			</Button>
