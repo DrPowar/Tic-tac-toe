@@ -2,12 +2,14 @@
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Models;
 using Tic_tac_toe.Service;
+using Tic_tac_toe.WinnerCombination;
 
 namespace Tic_tac_toe.ViewModel
 {
     internal partial class MainWindowViewModel : INotifyPropertyChanged
     {
         private string _gameStatusField;
+        private EndOfGameChecker _endOfGameChecker;
         public string GameStatusField
         {
             get => _gameStatusField;
@@ -21,9 +23,10 @@ namespace Tic_tac_toe.ViewModel
         private UserService _userService;
         public Box[] boxCollection { get; set; }
 
-        public MainWindowViewModel(UserService userService)
+        public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination)
         {
             _userService = userService;
+            _endOfGameChecker = new EndOfGameChecker(winnerCombination);
             StartNewGame();
         }
 
@@ -55,7 +58,7 @@ namespace Tic_tac_toe.ViewModel
 
         public void ChangeTurn()
         {
-            if (!CheckForEndOfGame())
+            if (!_endOfGameChecker.CheckForWinner(boxCollection))
             {
                 if (GameStatusField == GameStatusConst.PlayerTurn + " " + SymbolsConst.SymbolX)
                 {
@@ -68,7 +71,13 @@ namespace Tic_tac_toe.ViewModel
             }
             else
             {
+                GameStatusField = GameStatusConst.EndOfGame + " " + _userService.CurrentUser.UserSymbolName;
                 return;
+            }
+
+            if(_endOfGameChecker.CheckForDraw(boxCollection))
+            {
+                GameStatusField = GameStatusConst.Draw;
             }
 
             _userService.ChangeCurrentUser();

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using System;
 using Tic_tac_toe.Service;
 using Tic_tac_toe.ViewModel;
+using Tic_tac_toe.WinnerCombination;
 
 namespace Tic_tac_toe
 {
@@ -14,7 +15,8 @@ namespace Tic_tac_toe
             InitializeComponent();
             _userService = new UserService();
             _userService.InitializeUsers();
-            DataContext = new MainWindowViewModel(_userService);
+            StandartWinnerCombination _winnerCombination = new StandartWinnerCombination();
+            DataContext = new MainWindowViewModel(_userService, _winnerCombination);
         }
     }
 }
