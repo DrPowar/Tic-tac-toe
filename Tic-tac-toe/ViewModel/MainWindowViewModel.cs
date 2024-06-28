@@ -1,6 +1,9 @@
 ﻿using Avalonia.Media.Imaging;
+using Avalonia.Threading;
+using Prism.Commands;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Fabric;
 using Tic_tac_toe.Models;
@@ -12,6 +15,7 @@ namespace Tic_tac_toe.ViewModel
     internal partial class MainWindowViewModel : ViewModelBase
     {
         private string _gameStatusField;
+
         private EndOfGameChecker _endOfGameChecker;
 
         public GameHistory GameHistory { get; set; }
@@ -36,8 +40,10 @@ namespace Tic_tac_toe.ViewModel
         private UserService _userService;
         public Cell[] boxCollection { get; set; }
 
+        public DelegateCommand<string> BoxClickCommand { get; }
         public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination, GameHistory gameHistory)
         {
+            BoxClickCommand = new DelegateCommand<string>(BoxClick);
             Cells = new ObservableCollection<Cell>(CellFactory.Build(9, CellType.Cell));
             _userService = userService;
             _endOfGameChecker = new EndOfGameChecker(winnerCombination);
