@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
+using System;
 using System.Collections.Generic;
 using Tic_tac_toe.Models;
 
@@ -14,7 +15,9 @@ namespace Tic_tac_toe.Fabric
                 case CellType.Cell:
                     for (int i = 0; i < count; i++)
                     {
-                        cells.Add(new Cell());
+                        var cell = new Cell();
+                        cell.BoxSetValues(new Bitmap(Symbols.SymbolPath.XPath), Constants.SymbolsConst.SymbolX);
+                        cells.Add(cell);
                     }
                     break;
                 default:
