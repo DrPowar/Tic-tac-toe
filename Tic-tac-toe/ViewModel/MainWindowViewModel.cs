@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Tic_tac_toe.Constants;
+using Tic_tac_toe.Fabric;
 using Tic_tac_toe.Models;
 using Tic_tac_toe.Service;
 using Tic_tac_toe.WinnerCombination;
@@ -11,6 +13,8 @@ namespace Tic_tac_toe.ViewModel
         private string _gameStatusField;
         private EndOfGameChecker _endOfGameChecker;
         public GameHistory GameHistory { get; set; }
+        
+        public ObservableCollection<Cell> Cells { get; set; }
         public string GameStatusField
         {
             get => _gameStatusField;
@@ -19,13 +23,14 @@ namespace Tic_tac_toe.ViewModel
                 _gameStatusField = value;
                 OnPropertyChanged(nameof(GameStatusField));
             }
-        }
+        }   
 
         private UserService _userService;
         public Cell[] boxCollection { get; set; }
 
         public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination, GameHistory gameHistory)
         {
+             Cells = new ObservableCollection<Cell>(CellFactory.Build(9, CellType.Cell));
             _userService = userService;
             _endOfGameChecker = new EndOfGameChecker(winnerCombination);
             GameHistory = gameHistory;

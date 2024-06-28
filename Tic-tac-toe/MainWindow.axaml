@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Width="900" Height="620" WindowStartupLocation="CenterScreen" CanResize="False"
+        mc:Ignorable="d" Width="900" Height="620" WindowStartupLocation="CenterScreen" CanResize="True"
         xmlns:vm="using:Tic_tac_toe.ViewModel"
         x:DataType="vm:MainWindowViewModel"
         x:Class="Tic_tac_toe.MainWindow"
@@ -11,7 +11,7 @@
 	<DockPanel>
 		<StackPanel Name="GameField" DockPanel.Dock="Left">
 			<Grid ColumnDefinitions="200, 200, 200" RowDefinitions="200, 200, 200" Margin="10">
-				<Button IsEnabled="{Binding boxCollection[0].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="0" Name="Box1" Command="{Binding BoxClick}" CommandParameter="1">
+				<Button IsEnabled="{Binding Cells[0].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="0" Name="Box1" Command="{Binding BoxClick}" CommandParameter="1">
 					<Image Width="200" Height="200" Name="ImageBox1" Source="{Binding boxCollection[0].BoxImage}"/>
 				</Button>
 				<Button IsEnabled="{Binding boxCollection[1].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="0" Name="Box2" Command="{Binding BoxClick}" CommandParameter="2">
