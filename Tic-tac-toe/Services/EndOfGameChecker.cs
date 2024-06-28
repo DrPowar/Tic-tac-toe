@@ -13,7 +13,7 @@ namespace Tic_tac_toe.Service
             _winnerCombination = winnerCombination;
         }
 
-        public bool CheckForWinner(Box[] boxes)
+        public bool CheckForWinner(Cell[] boxes)
         {
             foreach (var combination in _winnerCombination.Combination)
             {
@@ -28,9 +28,9 @@ namespace Tic_tac_toe.Service
             return false;
         }
 
-        public bool CheckForDraw(Box[] boxes)
+        public bool CheckForDraw(Cell[] boxes)
         {
-            foreach (Box box in boxes)
+            foreach (Cell box in boxes)
             {
                 if(string.IsNullOrEmpty(box.SymbolName))
                 {

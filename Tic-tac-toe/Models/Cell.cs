@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Tic_tac_toe.Models
 {
-    public class Box : INotifyPropertyChanged
+    public class Cell : INotifyPropertyChanged
     {
         private Bitmap? boxImage;
         private string? symbolName;

@@ -6,7 +6,7 @@ using Tic_tac_toe.WinnerCombination;
 
 namespace Tic_tac_toe.ViewModel
 {
-    internal partial class MainWindowViewModel : INotifyPropertyChanged
+    internal partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private string _gameStatusField;
         private EndOfGameChecker _endOfGameChecker;
@@ -22,7 +22,7 @@ namespace Tic_tac_toe.ViewModel
         }
 
         private UserService _userService;
-        public Box[] boxCollection { get; set; }
+        public Cell[] boxCollection { get; set; }
 
         public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination, GameHistory gameHistory)
         {
@@ -34,10 +34,10 @@ namespace Tic_tac_toe.ViewModel
 
         public void StartNewGame()
         {
-            boxCollection = new Box[9];
+            boxCollection = new Cell[9];
             for (int i = 0; i < boxCollection.Length; i++)
             {
-                boxCollection[i] = new Box();
+                boxCollection[i] = new Cell();
             }
             GameStatusField = GameStatusConst.PlayerTurn + " " + _userService.CurrentUser.UserSymbolName;
         }
@@ -124,7 +124,7 @@ namespace Tic_tac_toe.ViewModel
         private bool CheckForDraw()
         {
             byte drawCounter = 0;
-            foreach (Box box in boxCollection)
+            foreach (Cell box in boxCollection)
             {
                 if (!box.IsEmpty)
                 {
