@@ -18,14 +18,14 @@ namespace Tic_tac_toe.ViewModel
         private GameHistory _gameHistory;
         private User _user;
 
-        public Box[] boxCollection { get; set; }
+        public Cell[] boxCollection { get; set; }
 
         private string _serverStatus = "Server not connected";
 
         private string _gameStatusField;
 
 
-        public MainWindowViewModel(UserService userService, Server server, User user, Box[] boxes)
+        public MainWindowViewModel(UserService userService, Server server, User user, Cell[] boxes)
         {
             _server = new Server();
             _userService = userService;
@@ -71,10 +71,10 @@ namespace Tic_tac_toe.ViewModel
 
         public void StartNewGame()
         {
-            boxCollection = new Box[9];
+            boxCollection = new Cell[9];
             for (int i = 0; i < boxCollection.Length; i++)
             {
-                boxCollection[i] = new Box();
+                boxCollection[i] = new Cell();
             }
             GameStatusField = GameStatusConst.PlayerTurn + " " + _userService.CurrentUser.UserSymbolName;
         }
@@ -163,7 +163,7 @@ namespace Tic_tac_toe.ViewModel
         private bool CheckForDraw()
         {
             byte drawCounter = 0;
-            foreach (Box box in boxCollection)
+            foreach (Cell box in boxCollection)
             {
                 if (!box.IsEmpty)
                 {

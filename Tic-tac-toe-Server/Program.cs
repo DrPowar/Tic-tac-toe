@@ -19,7 +19,7 @@ namespace Tic_tac_toe_Server
 
             GameHistory gameHistory = new GameHistory();
 
-            Box[] mainGameField = new Box[9];
+            Cell[] mainGameField = new Cell[9];
 
             while (true)
             {

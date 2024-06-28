@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Tic_tac_toe.Models
 {
-    public class Box : INotifyPropertyChanged
+    public class Cell : INotifyPropertyChanged
     {
         private Bitmap? boxImage;
 
@@ -62,12 +62,12 @@ namespace Tic_tac_toe.Models
             return JsonConvert.SerializeObject(this);
         }
 
-        public static Box FromJson(string json)
+        public static Cell FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<Box>(json);
+            return JsonConvert.DeserializeObject<Cell>(json);
         }
 
-        public Box()
+        public Cell()
         {
 
         }

@@ -5,7 +5,7 @@ namespace Tic_tac_toe.Models
 {
     public class ClientGameDataModel
     {
-        public Box[] BoxCollection { get; set; }
+        public Cell[] BoxCollection { get; set; }
         public Move Move { get; set; }
 
         public ClientGameDataModel()
@@ -13,7 +13,7 @@ namespace Tic_tac_toe.Models
 
         }
 
-        public ClientGameDataModel(Box[] boxCollection, Move move)
+        public ClientGameDataModel(Cell[] boxCollection, Move move)
         {
             BoxCollection = boxCollection;
             Move = move;

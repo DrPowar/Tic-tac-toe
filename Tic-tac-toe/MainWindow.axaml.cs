@@ -13,7 +13,7 @@ namespace Tic_tac_toe
         private UserService _userService;
         private Server _server;
         private User _user;
-        private Box[] mainGameField;
+        private Cell[] mainGameField;
         private MainWindowViewModel _viewModel;
         public MainWindow()
         {
@@ -28,7 +28,7 @@ namespace Tic_tac_toe
             _user = _server.ReceiveUserData();
 
 
-            _viewModel = new MainWindowViewModel(_userService, _server, _user, new Box[9]);
+            _viewModel = new MainWindowViewModel(_userService, _server, _user, new Cell[9]);
             DataContext = _viewModel;
 
             StartListeningToServerData();

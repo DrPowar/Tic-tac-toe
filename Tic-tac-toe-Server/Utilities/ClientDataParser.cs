@@ -4,7 +4,7 @@ namespace Tic_tac_toe_Server.Utilities
 {
     internal static class ClientDataParser
     {
-        public static void ParseClientData(ClientGameDataModel gmd, ref GameHistory gameHistory, ref Box[] boxes)
+        public static void ParseClientData(ClientGameDataModel gmd, ref GameHistory gameHistory, ref Cell[] boxes)
         {
             if (gmd == null)
             {
