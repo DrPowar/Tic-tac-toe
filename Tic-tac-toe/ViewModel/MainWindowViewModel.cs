@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using Tic_tac_toe.Constants;
 using Tic_tac_toe.Fabric;
 using Tic_tac_toe.Models;
@@ -8,29 +10,44 @@ using Tic_tac_toe.WinnerCombination;
 
 namespace Tic_tac_toe.ViewModel
 {
-    internal partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
+    internal partial class MainWindowViewModel : ViewModelBase
     {
         private string _gameStatusField;
         private EndOfGameChecker _endOfGameChecker;
+
         public GameHistory GameHistory { get; set; }
-        
-        public ObservableCollection<Cell> Cells { get; set; }
+
+        private ObservableCollection<Cell> _cells;
+
+        public ObservableCollection<Cell> Cells
+        {
+            get => _cells;
+            set => this.RaiseAndSetIfChanged(ref _cells, value);
+        }
+
+        private string testValue;
+
+        public string TestValue
+        {
+            get => testValue;
+            set => this.RaiseAndSetIfChanged(ref testValue, value);
+        }
+
         public string GameStatusField
         {
             get => _gameStatusField;
             set
             {
-                _gameStatusField = value;
-                OnPropertyChanged(nameof(GameStatusField));
+                this.RaiseAndSetIfChanged(ref _gameStatusField, value);
             }
-        }   
+        }
 
         private UserService _userService;
         public Cell[] boxCollection { get; set; }
 
         public MainWindowViewModel(UserService userService, WinnerCombinationBase winnerCombination, GameHistory gameHistory)
         {
-             Cells = new ObservableCollection<Cell>(CellFactory.Build(9, CellType.Cell));
+            Cells = new ObservableCollection<Cell>(CellFactory.Build(9, CellType.Cell));
             _userService = userService;
             _endOfGameChecker = new EndOfGameChecker(winnerCombination);
             GameHistory = gameHistory;
@@ -59,7 +76,7 @@ namespace Tic_tac_toe.ViewModel
 
         public void BoxClick(string param)
         {
-            boxCollection[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
+            Cells[int.Parse(param) - 1].BoxSetValues(_userService.CurrentUser.UserSymbol, _userService.CurrentUser.UserSymbolName);
             GameHistory.AddMove(new Move(_userService.CurrentUser, int.Parse(param) - 1));
             ChangeTurn();
         }
@@ -83,7 +100,7 @@ namespace Tic_tac_toe.ViewModel
                 return;
             }
 
-            if(_endOfGameChecker.CheckForDraw(boxCollection))
+            if (_endOfGameChecker.CheckForDraw(boxCollection))
             {
                 GameStatusField = GameStatusConst.Draw;
             }
@@ -117,7 +134,7 @@ namespace Tic_tac_toe.ViewModel
                 }
             }
 
-            if(CheckForDraw())
+            if (CheckForDraw())
             {
                 GameStatusField = GameStatusConst.Draw;
                 return true;
@@ -142,13 +159,6 @@ namespace Tic_tac_toe.ViewModel
                 }
             }
             return false;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

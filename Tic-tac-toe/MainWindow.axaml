@@ -12,31 +12,31 @@
 		<StackPanel Name="GameField" DockPanel.Dock="Left">
 			<Grid ColumnDefinitions="200, 200, 200" RowDefinitions="200, 200, 200" Margin="10">
 				<Button IsEnabled="{Binding Cells[0].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="0" Name="Box1" Command="{Binding BoxClick}" CommandParameter="1">
-					<Image Width="200" Height="200" Name="ImageBox1" Source="{Binding boxCollection[0].BoxImage}"/>
+					<Image Width="200" Height="200" Name="ImageBox1" Source="{Binding Cells[0].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[1].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="0" Name="Box2" Command="{Binding BoxClick}" CommandParameter="2">
-					<Image Width="200" Height="200" Name="ImageBox2" Source="{Binding boxCollection[1].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[1].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="0" Name="Box2" Command="{Binding BoxClick}" CommandParameter="2">
+					<Image Width="200" Height="200" Name="ImageBox2" Source="{Binding Cells[1].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[2].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="0" Name="Box3" Command="{Binding BoxClick}" CommandParameter="3">
-					<Image Width="200" Height="200" Name="ImageBox3" Source="{Binding boxCollection[2].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[2].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="0" Name="Box3" Command="{Binding BoxClick}" CommandParameter="3">
+					<Image Width="200" Height="200" Name="ImageBox3" Source="{Binding Cells[2].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[3].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="1" Name="Box4" Command="{Binding BoxClick}" CommandParameter="4">
-					<Image Width="200" Height="200" Name="ImageBox4" Source="{Binding boxCollection[3].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[3].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="1" Name="Box4" Command="{Binding BoxClick}" CommandParameter="4">
+					<Image Width="200" Height="200" Name="ImageBox4" Source="{Binding Cells[3].BoxImage}"/>
+				</Button>	
+				<Button IsEnabled="{Binding Cells[4].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="1" Name="Box5" Command="{Binding BoxClick}" CommandParameter="5">
+					<Image Width="200" Height="200" Name="ImageBox5" Source="{Binding Cells[4].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[4].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="1" Name="Box5" Command="{Binding BoxClick}" CommandParameter="5">
-					<Image Width="200" Height="200" Name="ImageBox5" Source="{Binding boxCollection[4].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[5].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="1" Name="Box6" Command="{Binding BoxClick}" CommandParameter="6">
+					<Image Width="200" Height="200" Name="ImageBox6" Source="{Binding Cells[5].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[5].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="1" Name="Box6" Command="{Binding BoxClick}" CommandParameter="6">
-					<Image Width="200" Height="200" Name="ImageBox6" Source="{Binding boxCollection[5].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[6].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="2" Name="Box7" Command="{Binding BoxClick}" CommandParameter="7">
+					<Image Width="200" Height="200" Name="ImageBox7" Source="{Binding Cells[6].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[6].IsEmpty}" Width="200" Height="200" Grid.Row="0" Grid.Column="2" Name="Box7" Command="{Binding BoxClick}" CommandParameter="7">
-					<Image Width="200" Height="200" Name="ImageBox7" Source="{Binding boxCollection[6].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[7].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="2" Name="Box8" Command="{Binding BoxClick}" CommandParameter="8">
+					<Image Width="200" Height="200" Name="ImageBox8" Source="{Binding Cells[7].BoxImage}"/>
 				</Button>
-				<Button IsEnabled="{Binding boxCollection[7].IsEmpty}" Width="200" Height="200" Grid.Row="1" Grid.Column="2" Name="Box8" Command="{Binding BoxClick}" CommandParameter="8">
-					<Image Width="200" Height="200" Name="ImageBox8" Source="{Binding boxCollection[7].BoxImage}"/>
-				</Button>
-				<Button IsEnabled="{Binding boxCollection[8].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="2" Name="Box9" Command="{Binding BoxClick}" CommandParameter="9">
-					<Image Width="200" Height="200" Name="ImageBox9" Source="{Binding boxCollection[8].BoxImage}"/>
+				<Button IsEnabled="{Binding Cells[8].IsEmpty}" Width="200" Height="200" Grid.Row="2" Grid.Column="2" Name="Box9" Command="{Binding BoxClick}" CommandParameter="9">
+					<Image Width="200" Height="200" Name="ImageBox9" Source="{Binding Cells[8].BoxImage}"/>
 				</Button>
 			</Grid>
 		</StackPanel>
